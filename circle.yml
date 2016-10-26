@@ -1,0 +1,13 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "~/docker"
+
+  override:
+    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
+    - docker build -t algas/docker-node-modules:build-test1 .
+    - mkdir -p ~/docker; docker save algas/docker-node-modules:build-test1 > ~/docker/image.tar
+
