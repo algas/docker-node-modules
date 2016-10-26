@@ -8,6 +8,12 @@ dependencies:
 
   override:
     - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
-    - docker build -t algas/docker-node-modules:build-test1 .
+    - docker build --rm=false -t algas/docker-node-modules:build-test1 .
     - mkdir -p ~/docker; docker save algas/docker-node-modules:build-test1 > ~/docker/image.tar
 
+deployment:
+  hub:
+    branch: test1
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push algas/docker-node-modules:build-test1
