@@ -1,0 +1,10 @@
+.git
+node_modules
+logs
+npm-debug.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+lib-cov
+coverage
