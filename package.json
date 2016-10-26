@@ -1,0 +1,9 @@
+{
+  "name": "docker-node-modules",
+  "version": "0.0.1",
+  "description": "Docker node_modules example",
+  "main": "index.js",
+  "dependencies": {
+    "yarn": "0.16.1"
+  }
+}
