@@ -1,14 +1,11 @@
 FROM algas/docker-node-modules:base-test-1
 
-USER root
-ENV ROOT_DIR /node
-RUN \
-  mkdir -p $ROOT_DIR && \
-  chown -R ubuntu:ubuntu $ROOT_DIR
+USER ubuntu
+ENV NODE_DIR /home/ubuntu/node
+RUN mkdir -p $NODE_DIR
 COPY package.json $ROOT_DIR/
 
-USER ubuntu
-WORKDIR $ROOT_DIR
+WORKDIR $NODE_DIR
 RUN npm install
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
