@@ -9,6 +9,6 @@ COPY package.json $NODE_DIR/
 WORKDIR $NODE_DIR
 RUN \
   npm install && \
-  npm ls > $LOG_DIR/installed.log
+  npm ls --depth=0 > $LOG_DIR/installed.log
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["cat", "/home/ubuntu/log/installed.log"]
