@@ -17,7 +17,7 @@ dependencies:
 
 test:
   post:
-    - docker run --rm -t algas/docker-node-modules:build-test1 grep ERR /home/ubuntu/log/installed.log
+    - docker run --rm -t algas/docker-node-modules:build-test1 | grep ERR | wc -l | awk '{print $1}' | grep '^0$'
 
 deployment:
   hub:
