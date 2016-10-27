@@ -5,11 +5,14 @@ machine:
 dependencies:
   cache_directories:
     - "~/docker"
+    - "~/node_cache"
 
   override:
+    - if [[ ! -d ~/docker ]]; then mkdir -p ~/docker; fi
+    - if [[ ! -d ~/node_cache ]]; then mkdir -p ~/node_cache; fi
     - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
-    - docker build --rm=false -t algas/docker-node-modules:build-test1 .
-    - mkdir -p ~/docker; docker save algas/docker-node-modules:build-test1 > ~/docker/image.tar
+    - diff ~/node/package.json ~/node_cache/package.json || docker build --rm=false -t algas/docker-node-modules:build-test1 .
+    - docker save algas/docker-node-modules:build-test1 > ~/docker/image.tar
 
 deployment:
   hub:
