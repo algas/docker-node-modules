@@ -11,9 +11,13 @@ dependencies:
     - if [[ ! -d ~/docker ]]; then mkdir -p ~/docker; fi
     - if [[ ! -d ~/node_cache ]]; then mkdir -p ~/node_cache; fi
     - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
-    - diff ~/node/package.json ~/node_cache/package.json || docker build --rm=false -t algas/docker-node-modules:build-test1 .
+    - diff ~/package.json ~/node_cache/package.json || docker build --rm=false -t algas/docker-node-modules:build-test1 .
     - docker save algas/docker-node-modules:build-test1 > ~/docker/image.tar
-    - cp -f ~/node/package.json ~/node_cache/
+    - if [[ -e ~/package.json ]]; then cp -f ~/package.json ~/node_cache/; fi
+
+test:
+  post:
+    - docker run --rm -t algas/docker-node-modules:build-test1 grep ERR /home/ubuntu/log/installed.log
 
 deployment:
   hub:
